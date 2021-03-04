@@ -15,7 +15,7 @@
 
 # nonebot_plugin_biliav
 
-_✨ NoneBot 短句回复 查看插件 ✨_
+_✨ NoneBot biliav小程序 查看插件 ✨_
 
 </div>
 
