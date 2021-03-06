@@ -16,7 +16,7 @@ from .data_source import get_av_data
 # @export.xxx
 # def some_function():
 #     pass
-biliav = on_regex("^av*|^BV*",priority=6)
+biliav = on_regex("^av*|^BV*")
 @biliav.handle()
 async def handle(bot:Bot,event:Event,state:T_State):
     rj = await get_av_data(event.get_message())
