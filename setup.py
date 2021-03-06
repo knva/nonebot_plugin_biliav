@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='nonebot_plugin_biliav',
-    version="1.0.1",
+    version="1.0.2",
     description=(
         'av号bv号查询器'
     ),
