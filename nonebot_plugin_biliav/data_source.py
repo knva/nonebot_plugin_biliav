@@ -5,42 +5,6 @@ from nonebot.adapters.onebot.v11 import MessageSegment, Message, Bot, Event
 
 url = 'https://api.biliapi.net/x/share/click'
 
-lightjson = {
-  "app": "com.tencent.miniapp_01",
-  "config": {
-    "autoSize": 0,
-    "forward": 1,
-    "type": "normal"
-  },
-  "desc": "哔哩哔哩",
-  "extra": {
-    "app_type": 1,
-    "appid": 100951776
-  },
-  "meta": {
-    "detail_1": {
-      "appid": "1109937557",
-      "desc": "",
-      "host": {
-        "nick": "QXXBot",
-        "uin": 805166081
-      },
-      "icon": "http://i.gtimg.cn/open/app_icon/00/95/17/76//100951776_100_m.png",
-      "preview": "",
-      "qqdocurl": "",
-      "scene": 1036,
-      "shareTemplateData": {},
-      "shareTemplateId": "8C8E89B49BE609866298ADDFF2DBABA4",
-      "title": "哔哩哔哩",
-      "url": ""
-    }
-  },
-  "needShareCallBack": False,
-  "prompt": "[QQ小程序]哔哩哔哩",
-  "ver": "1.0.0.19",
-  "view": "view_8C8E89B49BE609866298ADDFF2DBABA4"
-}
-
 import math
 def bv2av(Bv):
     # 1.去除Bv号前的"Bv"字符
@@ -81,6 +45,29 @@ def bv2av(Bv):
 
     return sum ^ temp
 
+async def get_top_comments(av:str):
+    av= str(av)
+    if av[0:2] == "BV":
+        avcode= bv2av(av)
+    else:
+        avcode = av.replace("av","")
+    async with httpx.AsyncClient() as client:
+        headers = {'Content-Type': "application/x-www-form-urlencoded"}
+        r = await client.get(url=f'https://api.bilibili.com/x/v2/reply/main?next=0&type=1&oid={avcode}', headers=headers)
+    rd =  json.loads(r.text)
+    if rd['code']=="0":
+        if not rd["data"]:
+            return None
+    hot_comments = rd['data']['replies'][:3]
+    msg = "\n-----------------\n--前三热评如下--\n-----------------\n"
+    for c in hot_comments:
+        name = c['member']['uname']
+        txt = c['content']['message']
+        msg +=f'{name}: {txt}\n\n'
+    return msg
+
+
+
 
 async def get_av_data(av):
     av= str(av)
@@ -106,8 +93,10 @@ async def get_av_data(av):
     title = rd['data']['title']
     pic = rd['data']['picture']
     link = rd['data']['link']
-    return "标题:" + title + "\n" + MessageSegment.image(pic) + "\n点击连接进入: \n"+link
+    msg = await get_top_comments(av)
+    return "标题:" + title + "\n" + MessageSegment.image(pic) + "\n点击连接进入: \n"+link + "\n" + msg
 
 if __name__ == '__main__':
     import asyncio
-    asyncio.run(get_av_data("BV1Xa411A71j"))
+    # asyncio.run(get_av_data("BV1Xa411A71j"))
+    asyncio.run(get_top_comments("BV1Xa411A71j"))
