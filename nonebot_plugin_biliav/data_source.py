@@ -1,7 +1,7 @@
 import httpx
 import json
 
-from nonebot.adapters.cqhttp import MessageSegment, Message, Bot, Event
+from nonebot.adapters.onebot.v11 import MessageSegment, Message, Bot, Event
 
 url = 'https://api.biliapi.net/x/share/click'
 
@@ -101,16 +101,13 @@ async def get_av_data(av):
         r = await client.post(url, headers=headers,data=body)
     rd=  json.loads(r.text)
     if rd['code']=="0":
-        if  not rd["data"]:
+        if not rd["data"]:
             return None
-    lightjson['meta']['detail_1']['desc'] = rd['data']['title']
-    lightjson['meta']['detail_1']['preview'] =rd['data']['picture']
-    lightjson['meta']['detail_1']['qqdocurl'] =rd['data']['link']
-    urlpath = rd['data']["program_path"]
-    pid = rd['data']["program_id"]
-    lightjson['meta']['detail_1']['url'] = "m.q.qq.com/a/p/{}?s={}".format(pid,urlpath)
-    # appjson ='[CQ:json,data=\"{}\"]'.format(json.dumps(lightjson))
-    return  MessageSegment.json(lightjson)
+    title = rd['data']['title']
+    pic = rd['data']['picture']
+    link = rd['data']['link']
+    return "标题:" + title + "\n" + MessageSegment.image(pic) + "\n点击连接进入: \n"+link
 
 if __name__ == '__main__':
-    print(bv2av('BV1Xa411A71j'))
+    import asyncio
+    asyncio.run(get_av_data("BV1Xa411A71j"))
