@@ -8,7 +8,7 @@
 -->
 
 <p align="center">
-  <a href="https://v2.nonebot.dev/"><img src="https://raw.githubusercontent.com/nonebot/nonebot2/master/docs/.vuepress/public/logo.png" width="200" height="200" alt="nonebot"></a>
+  <a href="https://v2.nonebot.dev/"><img src="https://v2.nonebot.dev/logo.png" width="200" height="200" alt="nonebot"></a>
 </p>
 
 <div align="center">
@@ -40,3 +40,5 @@ av170001
 
 ## 安装
 pip install nonebot_plugin_biliav
+
+## 已适配nonebot beta版本 感谢@anlen123
