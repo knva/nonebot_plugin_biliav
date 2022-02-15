@@ -41,4 +41,4 @@ av170001
 ## 安装
 pip install nonebot_plugin_biliav
 
-## 已适配nonebot beta版本
+## 已适配nonebot beta版本 感谢@anlen123
