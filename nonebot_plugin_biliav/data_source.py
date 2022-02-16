@@ -90,11 +90,14 @@ async def get_av_data(av):
     if rd['code']=="0":
         if not rd["data"]:
             return None
-    title = rd['data']['title']
-    pic = rd['data']['picture']
-    link = rd['data']['link']
-    msg = await get_top_comments(av)
-    return "标题:" + title + "\n" + MessageSegment.image(pic) + "\n点击连接进入: \n"+link + "\n" + msg
+    try:
+        title = rd['data']['title']
+        pic = rd['data']['picture']
+        link = rd['data']['link']
+        msg = await get_top_comments(av)
+        return "标题:" + title + "\n" + MessageSegment.image(pic) + "\n点击连接进入: \n"+link + "\n" + msg
+    except:
+        return "错误!!! 没有此av或BV号。"
 
 if __name__ == '__main__':
     import asyncio
