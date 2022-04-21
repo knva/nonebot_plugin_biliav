@@ -1,9 +1,19 @@
 import httpx
 import json
+import nonebot
 
 from nonebot.adapters.onebot.v11 import MessageSegment, Message, Bot, Event
 
-url = 'https://api.biliapi.net/x/share/click'
+url = 'https://api.bilibili.com/x/web-interface/view'
+
+global_config = nonebot.get_driver().config
+config = global_config.dict()
+b_comments = config.get('b_comments',"True")
+if b_comments != "True" and b_comments != "False":
+    b_comments = "True"
+
+b_comments = eval(b_comments)
+
 
 import math
 def bv2av(Bv):
@@ -75,31 +85,33 @@ async def get_av_data(av):
         avcode= bv2av(av)
     else:
         avcode = av.replace("av","")
-    body = {"build":"6060600",
-        "buvid":"0",
-        "oid": str(avcode),
-        "platform": "android",
-        "share_channel": "QQ",
-        "share_id": "main.ugc-video-detail.0.0.pv",
-        "share_mode": "7"
-    }
+    new_url =  url + f"?aid={avcode}"
     async with httpx.AsyncClient() as client:
         headers = {'Content-Type': "application/x-www-form-urlencoded"}
-        r = await client.post(url, headers=headers,data=body)
+        r = await client.get(new_url, headers=headers)
     rd=  json.loads(r.text)
     if rd['code']=="0":
         if not rd["data"]:
             return None
     try:
         title = rd['data']['title']
-        pic = rd['data']['picture']
-        link = rd['data']['link']
-        msg = await get_top_comments(av)
-        return "标题:" + title + "\n" + MessageSegment.image(pic) + "\n点击连接进入: \n"+link + "\n" + msg
+        pic = rd['data']['pic']
+        stat = rd['data']['stat']
+        view = stat['view']
+        danmaku = stat['danmaku']
+        reply = stat['reply']
+        fav = stat['favorite']
+        coin = stat['coin']
+        share = stat['share']
+        like = stat['like']
+        link = f"https://www.bilibili.com/video/av{avcode}"
+        desc = rd['data']['desc']
+
+        msg =  "标题:" + title + "\n" + MessageSegment.image(pic) + f"播放:{view} 弹幕:{danmaku} 评论:{reply} 收藏:{fav} 硬币:{coin} 分享:{share} 点赞:{like} \n点击连接进入: \n{link}\n简介: {desc}"
+
+        print(msg)
+        if b_comments:
+            msg+=await get_top_comments(avcode)
+        return msg
     except:
         return "错误!!! 没有此av或BV号。"
-
-if __name__ == '__main__':
-    import asyncio
-    # asyncio.run(get_av_data("BV1Xa411A71j"))
-    asyncio.run(get_top_comments("BV1Xa411A71j"))
