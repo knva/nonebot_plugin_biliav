@@ -9,10 +9,10 @@ url = 'https://api.bilibili.com/x/web-interface/view'
 global_config = nonebot.get_driver().config
 config = global_config.dict()
 b_comments = config.get('b_comments',"True")
-if b_comments != "True" and b_comments != "False":
-    b_comments = "True"
-
-b_comments = eval(b_comments)
+if b_comments == "False":
+    b_comments = False
+else:
+    b_comments = True
 
 
 import math
