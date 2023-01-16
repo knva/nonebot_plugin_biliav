@@ -38,6 +38,11 @@ av170001
 
 返回b站小程序对应的视频
 
+## 配置
+b_comments:
+作用: 是否携带前三热评
+可选项: [True, False]
+
 ## 安装
 pip install nonebot_plugin_biliav
 
