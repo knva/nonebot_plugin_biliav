@@ -43,7 +43,7 @@ av170001
 返回b站小程序对应的视频
 
 ## 配置
-b_comments:
+`b_comments`:
 
 作用: 是否携带前三热评
 
@@ -52,7 +52,7 @@ b_comments:
 默认值: False
 
 
-b_b23tv:
+`b_b23tv`:
 
 作用: 是否解析b23.tv链接
 
@@ -61,7 +61,7 @@ b_b23tv:
 默认值: True
 
 
-b_sleep_time:
+`b_sleep_time`:
 
 作用: 单条消息携带多个视频号时,返回的消息之间的延迟
 
