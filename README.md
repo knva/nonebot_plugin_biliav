@@ -47,3 +47,4 @@ b_comments:
 pip install nonebot_plugin_biliav
 
 ## 已适配nonebot beta版本 感谢@anlen123
+## 功能更新 感谢  @RiotGamesU 
