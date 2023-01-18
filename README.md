@@ -31,7 +31,7 @@ _✨ NoneBot biliav小程序 查看插件 ✨_
 </p>
 
 ## 使用方式
-发送：
+发送:
 av170001
 
 或者BV17x411w7KC
@@ -70,7 +70,18 @@ av170001
 默认值: 2
 
 ## 安装
-pip install nonebot_plugin_biliav
 
-## 已适配nonebot beta版本 感谢@anlen123
-## 功能更新 感谢  @RiotGamesU 
+- 通过pip:
+- - 1. pip install nonebot_plugin_biliav
+- - 2. 在bot.py中添加下面这行代码: `nonebot.load_plugin("nonebot_plugin_biliav")`
+
+- 通过nb-cli:
+- - 1. 将命令行的路径移动到bot.py所在目录下
+- - 2. nb plugin install nonebot-plugin-biliav
+
+- 通过源码:
+- - 1. 将本项目,通过git clone或下载压缩包并解压的方式,放在bot_folder/src/plugins/下,即下载好文件后,目录应是bot_folder/src/plugins/nonebot_plugin_biliav/
+- - 2. 正常运行bot即可
+
+### 已适配nonebot beta版本 感谢@anlen123 [https://github.com/anlen123](https://github.com/anlen123)
+### 功能更新 感谢  @RiotGamesU [https://github.com/RiotGamesU](https://github.com/RiotGamesU)
