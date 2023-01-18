@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot_plugin_biliav"
-version = "1.0.8"
+version = "1.0.10"
 description = "NoneBot biliav小程序 查看插件"
 authors = ["knva <txt_ch@163.com>"]
 license = "MIT"
