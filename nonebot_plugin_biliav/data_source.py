@@ -207,8 +207,8 @@ async def get_av_data(av_list: list[str]) -> list[str]:
                     # 成员粉丝数
                     cache_follower: int = staff["follower"]
 
-                    author_message += f"{cache_title}: {cache_name}-{cache_follower}粉丝 " + " "
-                    # author_message += f"{cache_title}: {cache_name}-{cache_follower}粉丝 " + MessageSegment.image(
+                    author_message += f"{cache_title}: {cache_name} {cache_follower}粉丝 " + " "
+                    # author_message += f"{cache_title}: {cache_name} {cache_follower}粉丝 " + MessageSegment.image(
                     #     cache_face_url) + " "
 
             else:
@@ -224,8 +224,8 @@ async def get_av_data(av_list: list[str]) -> list[str]:
                 # up主头像url
                 # card_face_url: str = card["card"]["face"]
 
-                author_message += f"昵称: {card_name}-粉丝数: {card_follower}"
-                # author_message += f"昵称: {card_name}-粉丝数: {card_follower}" + MessageSegment.image(card_face_url)
+                author_message += f"昵称: {card_name} 粉丝数: {card_follower}"
+                # author_message += f"昵称: {card_name} 粉丝数: {card_follower}" + MessageSegment.image(card_face_url)
 
             # 视频曾获荣誉, 如果没有则不存在该键
             # 先组合honor相关string
@@ -281,7 +281,7 @@ async def get_av_data(av_list: list[str]) -> list[str]:
             link: str = f"https://www.bilibili.com/video/{avcode}"
 
             msg += \
-                f"av{avcode}" + ": " + "标题: " + title + "\n" + MessageSegment.image(pic_url) \
+                f"av{avcode}" + " 标题: " + title + "\n" + MessageSegment.image(pic_url) \
                 + "\n" + f"发布时间: {pubdate} 分p数: {videos} 分区: {tname} 视频总时长: {duration_str} " \
                 + f"版权信息: {the_copyright}" \
                 + "\n" + f"播放: {stat_view} 弹幕: {stat_danmaku} 评论: {stat_reply} 收藏: {stat_fav} " \
